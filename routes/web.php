@@ -11,6 +11,5 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'LinkController@create')->name('links.create');
+Route::post('/', 'LinkController@store')->name('links.store');
