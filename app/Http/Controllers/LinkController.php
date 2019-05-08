@@ -38,6 +38,10 @@ class LinkController extends Controller
             ]);
         }
 
+        return $this->showAddedLink($link);
+    }
+
+    protected function showAddedLink($link) {
         return view('show')->with('link', $link);
     }
 }
