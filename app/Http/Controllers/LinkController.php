@@ -11,7 +11,7 @@ class LinkController extends Controller
     public function show($code)
     {
         $link = Cache::rememberForever("link.{$code}", function () use ($code) {
-           return Link::byCode($code)->first();
+            return Link::byCode($code)->first();
         });
 
         return redirect($link->original_url);
@@ -41,7 +41,8 @@ class LinkController extends Controller
         return $this->showAddedLink($link);
     }
 
-    protected function showAddedLink($link) {
+    protected function showAddedLink($link)
+    {
         return view('show')->with('link', $link);
     }
 }
