@@ -7,10 +7,16 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Link;
 
-class LinkCreationTest extends TestCase
+class LinkTest extends TestCase
 {
 
     use RefreshDatabase;
+
+    public function testGetLinkCreatePage()
+    {
+        $response = $this->get(route('links.create'));
+        $response->assertOk();
+    }
 
     public function testNoUrlGiven()
     {
@@ -35,5 +41,13 @@ class LinkCreationTest extends TestCase
         $this->post(route('links.create'), ['url' => 'http://google.com']);
         $this->post(route('links.create'), ['url' => 'http://google.com']);
         $this->assertEquals(1, Link::count());
+    }
+
+    public function testUrlShouldRedirect()
+    {
+        $this->post(route('links.create'), ['url' => 'http://google.com']);
+        $link = Link::where('original_url', 'http://google.com')->first();
+        $response = $this->get(route('links.show', $link->id));
+        $response->assertRedirect('http://google.com');
     }
 }
