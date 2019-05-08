@@ -4,12 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Link;
 use Illuminate\Http\Request;
+use Cache;
 
 class LinkController extends Controller
 {
     public function show($code)
     {
-        $link = Link::byCode($code)->first();
+        $link = Cache::rememberForever("link.{$code}", function () use ($code) {
+           return Link::byCode($code)->first();
+        });
+
         return redirect($link->original_url);
     }
 
