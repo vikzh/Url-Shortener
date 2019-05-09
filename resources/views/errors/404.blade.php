@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('head', 'Create Short Link')
+@section('title', '404')
 
 @section('body')
     <div class="container">

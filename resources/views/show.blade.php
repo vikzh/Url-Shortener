@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('head', 'Short Link')
+@section('title', 'Short Link')
 
 @section('body')
     <div class="container ">
@@ -10,8 +10,9 @@
             <hr class="my-4">
             <p>Your short Url:</p>
             <div class="mb-3 h1">
-                <a href="{{ route('links.show', $link->code) }}" class="badge badge-info text-s">{{ route('links.show', $link->code) }}</a>
+                <a href="{{ route('links.show', $link->code) }}"
+                   class="badge badge-info text-s">{{ route('links.show', $link->code) }}</a>
             </div>
         </div>
     </div>
-    @endsection
+@endsection

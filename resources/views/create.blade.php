@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('head', 'Create Short Link')
+@section('title', 'Create Short Link')
 
 @section('body')
     <div class="container">
@@ -14,7 +14,7 @@
                     @csrf
                     <input name="url" type="text" class="form-control" placeholder="url">
                     <div class="input-group-append">
-                        <button class="btn btn-outline-primary" type="submit" id="button-addon2">Short</button>
+                        <button class="btn btn-outline-primary" type="submit" id="button-addon2">Shorten</button>
                     </div>
                 </form>
             </div>
