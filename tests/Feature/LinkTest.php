@@ -50,4 +50,10 @@ class LinkTest extends TestCase
         $response = $this->get(route('links.show', $link->id));
         $response->assertRedirect('http://google.com');
     }
+
+    public function testLinkNotFound()
+    {
+        $response = $this->get(route('links.show', '4'));
+        $response->assertStatus(404);
+    }
 }
