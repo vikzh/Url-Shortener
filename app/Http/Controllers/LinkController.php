@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Link;
-use Illuminate\Http\Request;
 use Cache;
+use App\Http\Requests\LinkRequest;
 
 class LinkController extends Controller
 {
@@ -22,15 +22,12 @@ class LinkController extends Controller
         return view('create');
     }
 
-    public function store(Request $request)
+    public function store(LinkRequest $request)
     {
-        $this->validate($request, [
-            'url' => 'required|url'
-        ]);
-
         $link = Link::firstOrNew([
             'original_url' => $request->input('url')
         ]);
+
         if (!$link->exists) {
             $link->save();
             $link->update([
@@ -38,11 +35,6 @@ class LinkController extends Controller
             ]);
         }
 
-        return $this->showAddedLink($link);
-    }
-
-    protected function showAddedLink($link)
-    {
         return view('show')->with('link', $link);
     }
 }
