@@ -13,5 +13,10 @@
     <a class="navbar-brand" href="{{ route('links.create') }}">Url-Shortner</a>
 </nav>
 @yield('body')
+@if(session()->has('message'))
+    <div class="alert alert-success" role="alert">
+        {{ session('message') }}
+    </div>
+@endif
 </body>
 </html>

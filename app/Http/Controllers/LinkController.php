@@ -29,7 +29,9 @@ class LinkController extends Controller
         $link = Link::firstOrCreate([
             'original_url' => $request->input('url')
         ]);
+        session()->flash('message', 'Link successfully shorted');
 
+        // TODO create a new view for the created link. redirect to it
         return view('show')->with('link', $link);
     }
 }
