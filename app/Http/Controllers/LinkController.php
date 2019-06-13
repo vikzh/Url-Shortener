@@ -26,16 +26,9 @@ class LinkController extends Controller
 
     public function store(LinkRequest $request)
     {
-        $link = Link::firstOrNew([
+        $link = Link::firstOrCreate([
             'original_url' => $request->input('url')
         ]);
-
-        if (!$link->exists) {
-            $link->save();
-            $link->update([
-                'code' => $link->getCode()
-            ]);
-        }
 
         return view('show')->with('link', $link);
     }

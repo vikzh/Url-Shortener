@@ -15,7 +15,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        Link::observe(LinkObserver::class);
+        //
     }
 
     /**
@@ -25,6 +25,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Link::observe(LinkObserver::class);
     }
 }
