@@ -56,4 +56,21 @@ class LinkTest extends TestCase
         $response = $this->get(route('links.show', '4'));
         $response->assertStatus(404);
     }
+
+    public function testRedirectAfterLinkCreation()
+    {
+        $response = $this->post(route('links.create', ['url' => 'http://google.com']));
+        $link = Link::where('original_url', 'http://google.com')->first();
+        $response->assertStatus(302);
+        $response->assertRedirect(route('links.info', ['code' => $link->code]));
+    }
+
+    public function testGetLinkShowInfo()
+    {
+        $this->post(route('links.create', ['url' => 'http://google.com']));
+        $link = Link::where('original_url', 'http://google.com')->first();
+
+        $response = $this->get(route('links.info', ['code' => $link->code]));
+        $response->assertOk();
+    }
 }

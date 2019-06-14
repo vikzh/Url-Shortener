@@ -11,11 +11,8 @@ class LinkController extends Controller
     public function show($code)
     {
         $link = Cache::rememberForever("link.{$code}", function () use ($code) {
-            return Link::byCode($code)->first();
+            return Link::byCode($code)->firstOrFail();
         });
-        if (is_null($link)) {
-            abort(404);
-        }
         return redirect($link->original_url);
     }
 
@@ -31,7 +28,12 @@ class LinkController extends Controller
         ]);
         session()->flash('message', 'Link successfully shorted');
 
-        // TODO create a new view for the created link. redirect to it
-        return view('show')->with('link', $link);
+        return redirect(route('links.info', ['code' => $link->code]))->with('code', $link->code);
+    }
+
+    public function showInfo($code)
+    {
+        $link = Link::byCode($code)->firstOrFail();
+        return view('show-info')->with('link', $link);
     }
 }
