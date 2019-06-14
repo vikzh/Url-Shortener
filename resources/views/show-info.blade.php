@@ -3,7 +3,7 @@
 @section('title', 'Short Link')
 
 @section('body')
-    <div class="container ">
+    <div class="container">
         <div class="jumbotron mt-3">
             <h1 class="display-4">Url-Shortner</h1>
             <p class="lead">Simple page that shortens url</p>
