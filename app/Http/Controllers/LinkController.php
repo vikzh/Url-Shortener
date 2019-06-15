@@ -24,7 +24,7 @@ class LinkController extends Controller
     public function store(LinkRequest $request)
     {
         $link = Link::firstOrCreate([
-            'original_url' => $request->input('url')
+            'original_url' => $request->input('url-to-short')
         ]);
         session()->flash('message', 'Link successfully shorted');
 

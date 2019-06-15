@@ -15,17 +15,18 @@ class ModifyUrl
      */
     public function handle($request, Closure $next)
     {
-        if (!$request->has('url')) {
+        if (!$request->has('url-to-short')) {
             return $next($request);
         }
-        $validator = \Validator::make($request->only('url'), [
-            'url' => 'url'
+        $validator = \Validator::make($request->only('url-to-short'), [
+            'url-to-short' => 'url'
         ]);
         if ($validator->fails()) {
             $request->merge([
-                'url' => 'http://' . $request->url
+                'url-to-short' => 'http://' . $request['url-to-short']
             ]);
         }
+
         return $next($request);
     }
 }

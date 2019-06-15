@@ -14,7 +14,7 @@ class LinkRequest extends FormRequest
     public function rules()
     {
         return [
-            'url' => 'url|required|min:3'
+            'url-to-short' => 'required|min:3|url',
         ];
     }
 }
