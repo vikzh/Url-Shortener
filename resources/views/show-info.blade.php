@@ -13,6 +13,11 @@
                 <a href="{{ route('links.show', $link->code) }}"
                    class="badge badge-info text-s">{{ route('links.show', $link->code) }}</a>
             </div>
+            @if(session()->has('message'))
+                <div class="alert alert-success" role="alert">
+                    {{ session('message') }}
+                </div>
+            @endif
         </div>
     </div>
 @endsection
