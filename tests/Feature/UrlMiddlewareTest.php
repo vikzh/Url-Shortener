@@ -18,11 +18,11 @@ class UrlMiddlewareTest extends TestCase
     {
         $request = new Request();
         $request->replace([
-            'url' => 'yandex.ru',
+            'url-to-short' => 'yandex.ru',
         ]);
         $middleware = new ModifyUrl();
         $middleware->handle($request, function ($req) {
-            $this->assertEquals('http://yandex.ru', $req->url);
+            $this->assertEquals('http://yandex.ru', $req['url-to-short']);
         });
     }
 
@@ -36,11 +36,11 @@ class UrlMiddlewareTest extends TestCase
         ];
         foreach ($urls as $url) {
             $request->replace([
-                'url' => $url,
+                'url-to-short' => $url,
             ]);
             $middleware = new ModifyUrl();
             $middleware->handle($request, function ($req) use ($url) {
-                $this->assertEquals($url, $req->url);
+                $this->assertEquals($url, $req['url-to-short']);
             });
         }
     }

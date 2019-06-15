@@ -26,26 +26,26 @@ class LinkTest extends TestCase
 
     public function testInvalidUrlGiven()
     {
-        $this->post(route('links.create'), ['url' => 'http://someSite!@#$%^&*(']);
+        $this->post(route('links.create'), ['url-to-short' => 'http://someSite!@#$%^&*(']);
         $this->assertEquals(Link::count(), 0);
     }
 
     public function testValidUrlGiven()
     {
-        $this->post(route('links.create'), ['url' => 'http://google.com']);
+        $this->post(route('links.create'), ['url-to-short' => 'http://google.com']);
         $this->assertDatabaseHas('links', ['original_url' => 'http://google.com']);
     }
 
     public function testValidUrlGivenTwice()
     {
-        $this->post(route('links.create'), ['url' => 'http://google.com']);
-        $this->post(route('links.create'), ['url' => 'http://google.com']);
+        $this->post(route('links.create'), ['url-to-short' => 'http://google.com']);
+        $this->post(route('links.create'), ['url-to-short' => 'http://google.com']);
         $this->assertEquals(1, Link::count());
     }
 
     public function testUrlShouldRedirect()
     {
-        $this->post(route('links.create'), ['url' => 'http://google.com']);
+        $this->post(route('links.create'), ['url-to-short' => 'http://google.com']);
         $link = Link::where('original_url', 'http://google.com')->first();
         $response = $this->get(route('links.show', $link->id));
         $response->assertRedirect('http://google.com');
@@ -59,7 +59,7 @@ class LinkTest extends TestCase
 
     public function testRedirectAfterLinkCreation()
     {
-        $response = $this->post(route('links.create', ['url' => 'http://google.com']));
+        $response = $this->post(route('links.create', ['url-to-short' => 'http://google.com']));
         $link = Link::where('original_url', 'http://google.com')->first();
         $response->assertStatus(302);
         $response->assertRedirect(route('links.info', ['code' => $link->code]));
@@ -67,7 +67,7 @@ class LinkTest extends TestCase
 
     public function testGetLinkShowInfo()
     {
-        $this->post(route('links.create', ['url' => 'http://google.com']));
+        $this->post(route('links.create', ['url-to-short' => 'http://google.com']));
         $link = Link::where('original_url', 'http://google.com')->first();
 
         $response = $this->get(route('links.info', ['code' => $link->code]));
